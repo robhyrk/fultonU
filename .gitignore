@@ -33,6 +33,7 @@ access_log
 # Ignore everything in "wp-content" except the "plugins", "themes", and "uploads" directories. #
 # ============================================================================================ #
 /*
+!index.php
 !.gitignore
 !plugins/
 !themes/
