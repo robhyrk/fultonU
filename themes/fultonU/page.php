@@ -30,11 +30,11 @@
 
 <?php 
 
-$testArray = get_pages(array(
+$pageArray = get_pages(array(
     'child_of' => get_the_ID()
 ));
 
-if ($theParent or $testArray) {} ?>    
+if ($theParent or $pageArray) : ?>    
 
     <div class="page-links">
       <h2 class="page-links__title"><a href="<?php echo get_permalink($theParent);?>"><?php echo get_the_title($theParent);?></a></h2>
@@ -52,7 +52,7 @@ if ($theParent or $testArray) {} ?>
                 'child_of' => $findChildrenOf,
                 'sort_column' => 'menu_order'
             ));
-        ?>
+        endif ?>
       </ul>
     </div>
    

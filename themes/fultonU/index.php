@@ -32,9 +32,8 @@
     </div>
 <?php
   endwhile;
-echo paginate_links();
-
-  ?>
+  echo paginate_links();
+?>
 
 </div>
 
