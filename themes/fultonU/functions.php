@@ -22,6 +22,13 @@ add_action('after_setup_theme', 'uni_features');
 
 //Filters event archive page to show dates in ascending order that haven't passed
 function uni_adjust_queries($query) {
+    if(!is_admin() && is_post_type_archive('program') && $query->is_main_query()) {
+        $query->set('orderby', 'title');
+        $query->set('order', 'ASC');
+        $query->set('posts_per_age', -1);
+    }
+
+
     $today = date('Ymd');
     if(!is_admin() && is_post_type_archive('event') && $query->is_main_query() ){
         $query->set('meta_key', 'event_date');

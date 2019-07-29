@@ -6,7 +6,7 @@
       <h1 class="headline headline--large">Welcome!</h1>
       <h2 class="headline headline--medium">We think you&rsquo;ll like it here.</h2>
       <h3 class="headline headline--small">Why don&rsquo;t you check out the <strong>major</strong> you&rsquo;re interested in?</h3>
-      <a href="#" class="btn btn--large btn--blue">Find Your Major</a>
+      <a href="<?php echo get_post_type_archive_link('program')?>" class="btn btn--large btn--blue">Find Your Major</a>
     </div>
   </div>
 
@@ -16,6 +16,7 @@
         <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
 
         <?php
+        //Returns Only Events That Are Upcoming
           $today = date('Ymd');
           $homepageEvents = new WP_Query(array(
             'post_type' => 'event',
@@ -31,6 +32,8 @@
               )
             )
           ));
+
+          wp_reset_postdata();
 
           while($homepageEvents->have_posts()) :
             $homepageEvents->the_post();
