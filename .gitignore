@@ -37,15 +37,14 @@ access_log
 !.gitignore
 !plugins/
 !themes/
+!mu-plugins/
 !uploads/
 !README.md
 
 # Ignore everything in "plugins" except certain plugins. #
 # ========================================================== #
 plugins/*
-!plugins/redstarter-functionality/
-!plugins/business-hours-widget/
-!plugins/biz-hours-widget2/
+!plugins/advanced-custom-fields/
 
 # Ignore everything in "themes" except the active theme. #
 # ========================================================== #
