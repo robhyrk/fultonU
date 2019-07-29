@@ -16,6 +16,11 @@ function uni_features() {
     register_nav_menu('footerLocation1', 'Footer Location 1');
     register_nav_menu('footerLocation2', 'Footer Location 2');
     add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_image_size('pageBanner', 1500, 350, true);
+    add_image_size('instructorLandscape', 400, 260, true);
+    add_image_size('instructorPortriat', 480, 650, true);
+
 }
 
 add_action('after_setup_theme', 'uni_features');

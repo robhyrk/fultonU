@@ -23,7 +23,45 @@
 
         <div class="generic-content"><?php the_content();?></div>
         
-        <?php
+    <?php
+    //Custom Query to Show Related Instructors
+    $relatedInstructors = new WP_Query(array(
+        'post_type' => 'instructor',
+        'posts_per_page' => -1,
+        'order_by' => 'title',
+        'order' => 'ASC',
+        //Filters query
+        'meta_query' => array(
+            array(
+                'key' => 'related_programs',
+                'compare' => 'LIKE',
+                'value' => '"' . get_the_id() . '"'
+                )
+        )
+    ));
+
+    if($relatedInstructors->have_posts()) :
+        echo '<hr class="section-break">';
+        echo '<h2 class="headline headline--medium">' . get_the_title() . ' Professors</h2>';
+        echo '<ul class="professor-cards">';
+        while($relatedInstructors->have_posts()) :
+            $relatedInstructors->the_post();?>
+        
+            <li class="professor-card__list-item">
+            
+                <a class="professor-card" href="<?php the_permalink();?>">
+                    <img class="professor-card__image" src="<?php the_post_thumbnail_url('instructorLandscape')?>">
+                    <span class="professor-card__name"><?php the_title();?></span>
+
+                </a>
+            
+            </li>
+        <?php 
+        echo '</ul>';
+        endwhile; 
+        endif;
+        wp_reset_postdata();
+
           $today = date('Ymd');
           $homepageEvents = new WP_Query(array(
             'post_type' => 'event',
@@ -46,9 +84,8 @@
             )
           ));
 
-          wp_reset_postdata();
-
-          if($homepageEvents->have_posts()) :
+    //Custom Query to Show Related Events
+    if($homepageEvents->have_posts()) :
             echo '<hr class="section-break">';
             echo '<h2 class="headline headline--medium">Upcoming ' . get_the_title() . ' Events</h2>';
 
@@ -75,6 +112,8 @@
             <?php 
             endwhile; 
             endif;
+            wp_reset_postdata();
+
             ?>
 
         </div>
