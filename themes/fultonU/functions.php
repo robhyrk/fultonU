@@ -52,57 +52,36 @@ function uni_adjust_queries($query) {
 
 add_action('pre_get_posts', 'uni_adjust_queries');
 
-function uni_post_types() {
-    //Event pOSt Type
-    register_post_type('event', array(
-        'has_archive' => true,
-        'show_in_rest' => true,
-        'supports' => array('title', 'editor', 'excerpt'),
-        'rewrite' => array('slug' => 'events'),
-        'public' => true,
-        'labels' => array(
-            'name' => 'Events',
-            'add_new_item' => 'Add New Event',
-            'edit_item' => 'Edit Event',
-            'all_items' => 'All Events',
-            'singular_name' => 'Event'
-        ),
-        'menu_icon' => 'dashicons-calendar'
-    ));
-
-    //Program Post Type
-    register_post_type('program', array(
-        'has_archive' => true,
-        'show_in_rest' => true,
-        'supports' => array('title', 'editor'),
-        'rewrite' => array('slug' => 'programs'),
-        'public' => true,
-        'labels' => array(
-            'name' => 'Programs',
-            'add_new_item' => 'Add New Program',
-            'edit_item' => 'Edit Program',
-            'all_items' => 'All Programs',
-            'singular_name' => 'Program'
-        ),
-        'menu_icon' => 'dashicons-awards'
-    ));
-
-    // Post Type
-    register_post_type('instructor', array(
-        'show_in_rest' => true,
-        'supports' => array('title', 'editor', 'thumbnail'),
-        'public' => true,
-        'labels' => array(
-            'name' => 'Instructors',
-            'add_new_item' => 'Add New Instructor',
-            'edit_item' => 'Edit Instructor',
-            'all_items' => 'All Instructors',
-            'singular_name' => 'Instructor'
-        ),
-        'menu_icon' => 'dashicons-welcome-learn-more'
-    ));
+//Custom function to dynamically add page banner content
+function pageBanner($args = NULL) {
+if(!$args['title']) {
+    $args['title'] = get_the_title();
 }
 
-add_action('init', 'uni_post_types');
+if (!$args['subtitle']) {
+    $args['subtitle'] = get_field('page_banner_subtitle');
+}
+
+if (!$args['photo']) {
+   if (get_field('page_banner_background_image')) {
+       $args['photo'] = get_field('page_banner_image')['sizes']['pageBanner'];
+   } else {
+   }
+}
+
+?>
+<div class="page-banner">
+        <div class="page-banner__bg-image" 
+            style="background-image: url(<?php echo $args['photo']; ?>)">
+        </div>
+            <div class="page-banner__content container container--narrow">
+                <h1 class="page-banner__title"><?php echo $args['title']; ?></h1>
+                <div class="page-banner__intro">
+                <p><?php echo $args['subtitle'];?></p>
+            </div>
+        </div>  
+    </div>
+    <?php
+}
 
 ?>
