@@ -3,8 +3,8 @@
     get_header();
 
     while(have_posts() ) :
-        the_post(); ?>
-    <?php pageBanner();?>
+        the_post(); 
+        pageBanner();?>
 
     <div class="container container--narrow page-section">
 

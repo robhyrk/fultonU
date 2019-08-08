@@ -64,8 +64,9 @@ if (!$args['subtitle']) {
 
 if (!$args['photo']) {
    if (get_field('page_banner_background_image')) {
-       $args['photo'] = get_field('page_banner_image')['sizes']['pageBanner'];
+       $args['photo'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
    } else {
+       $args['photo'] = get_theme_file_uri('/images/ocean.jpg');
    }
 }
 
