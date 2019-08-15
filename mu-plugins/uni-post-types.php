@@ -1,7 +1,24 @@
 <?php 
 
 function uni_post_types() {
-    //Event pOSt Type
+    //Event Post Type
+    register_post_type('campus', array(
+        'has_archive' => true,
+        'show_in_rest' => true,
+        'supports' => array('title', 'editor', 'excerpt'),
+        'rewrite' => array('slug' => 'campuses'),
+        'public' => true,
+        'labels' => array(
+            'name' => 'Campuses',
+            'add_new_item' => 'Add New Campus',
+            'edit_item' => 'Edit Event',
+            'all_items' => 'All Campuses',
+            'singular_name' => 'Campus'
+        ),
+        'menu_icon' => 'dashicons-location-alt'
+    ));
+
+    //Event Post Type
     register_post_type('event', array(
         'has_archive' => true,
         'show_in_rest' => true,

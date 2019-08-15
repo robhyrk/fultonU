@@ -50,6 +50,13 @@ function uni_adjust_queries($query) {
     }
 }
 
+function uni_mapKey($api) {
+    $api['key'] = 'AIzaSyAz8lYrZ_567AkBcA7CgCkgTFHfCvNRxkw';
+    return $api;
+}
+
+add_filter('acf/fields/google_map/api', 'uni_mapKey');
+
 add_action('pre_get_posts', 'uni_adjust_queries');
 
 //Custom function to dynamically add page banner content
