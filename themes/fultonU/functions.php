@@ -1,8 +1,9 @@
 <?php 
 
 function uni_files() {
-    wp_enqueue_script('main_uni_js', get_theme_file_uri('/js/scripts-bundled.js'), NULL, microtime(), true);
-    
+    wp_enqueue_script('google-map', "https://maps.googleapis.com/maps/api/js?key=AIzaSyAi-xL3a_LFjXaxiOtUOGsFvI2eFDERBQg", NULL, 1.0, true);
+    wp_enqueue_script('main_uni_js', get_theme_file_uri('/js/scripts-bundled.js'), array('jquery'), 1.1, true);
+
     wp_enqueue_style('uni_main_styles', get_stylesheet_uri(), NULL, microtime());
     wp_enqueue_style('font-awesome', "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
     wp_enqueue_style('google-fonts', "https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i");
@@ -51,7 +52,7 @@ function uni_adjust_queries($query) {
 }
 
 function uni_mapKey($api) {
-    $api['key'] = 'AIzaSyAz8lYrZ_567AkBcA7CgCkgTFHfCvNRxkw';
+    $api['key'] = 'AIzaSyAi-xL3a_LFjXaxiOtUOGsFvI2eFDERBQg';
     return $api;
 }
 
