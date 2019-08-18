@@ -3,7 +3,7 @@
   get_header();
   pageBanner(array(
     'title' => 'Our Campuses',
-    'subtitle' => 'Come n and see what we\'re about'
+    'subtitle' => 'Come in and see what we\'re about'
   ));
   ?>
 
