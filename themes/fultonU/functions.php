@@ -1,5 +1,7 @@
 <?php 
 
+require get_theme_file_path('/inc/search-route.php');
+
 //Add custom fields to JSON API data
 function uni_custom_rest() {
     register_rest_field('post', 'authorName', array(
