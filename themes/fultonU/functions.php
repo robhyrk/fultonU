@@ -1,5 +1,14 @@
 <?php 
 
+//Add custom fields to JSON API data
+function uni_custom_rest() {
+    register_rest_field('post', 'authorName', array(
+        'get_callback' => function(){return get_the_author();}
+    ));
+}
+
+add_action('rest_api_init', 'uni_custom_rest');
+
 function uni_files() {
     wp_enqueue_script('google-map', "https://maps.googleapis.com/maps/api/js?key=AIzaSyAi-xL3a_LFjXaxiOtUOGsFvI2eFDERBQg", NULL, 1.0, true);
     wp_enqueue_script('main_uni_js', get_theme_file_uri('/js/scripts-bundled.js'), array('jquery'), microtime(), true);
