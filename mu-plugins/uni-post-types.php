@@ -39,7 +39,7 @@ function uni_post_types() {
     register_post_type('program', array(
         'has_archive' => true,
         'show_in_rest' => true,
-        'supports' => array('title', 'editor'),
+        'supports' => array('title'),
         'rewrite' => array('slug' => 'programs'),
         'public' => true,
         'labels' => array(

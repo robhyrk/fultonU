@@ -21,7 +21,7 @@
             <span class="metabox__main"><?php the_title();?></span></p>
         </div>
 
-        <div class="generic-content"><?php the_content();?></div>
+        <div class="generic-content"><?php the_field('main_body_content');?></div>
         
     <?php
     //Custom Query to Show Related Instructors
@@ -48,13 +48,10 @@
             $relatedInstructors->the_post();?>
         
             <li class="professor-card__list-item">
-            
                 <a class="professor-card" href="<?php the_permalink();?>">
                     <img class="professor-card__image" src="<?php the_post_thumbnail_url('instructorLandscape')?>">
                     <span class="professor-card__name"><?php the_title();?></span>
-
                 </a>
-            
             </li>
         <?php 
         echo '</ul>';
