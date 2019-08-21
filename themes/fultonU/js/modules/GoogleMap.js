@@ -98,5 +98,4 @@ class GMap {
 
     } // end center_map
 }
-
 export default GMap;

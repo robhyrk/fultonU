@@ -3,7 +3,9 @@
     get_header();
 
     while(have_posts() ) :
-        the_post(); ?>
+        the_post(); 
+        pageBanner();?>
+        
     <div class="page-banner">
         <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('images/ocean.jpg')?>);"></div>
             <div class="page-banner__content container container--narrow">

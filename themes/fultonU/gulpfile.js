@@ -67,12 +67,14 @@ gulp.task('browser-sync', function() {
     proxy: 'localhost:8888/fultonU'
   });
 
-  gulp.watch(files).on('change', browserSync.reload);
+  gulp.watch(files).on('change', browserSync.stream);
+  
 });
 
-gulp.task('watch', function() {
-  gulp.watch('js/*.js', gulp.series('scripts'));
+gulp.task('watch', function(done) {
+  gulp.watch('js/**/*.js', gulp.series('scripts'));
   gulp.watch('sass/*.scss', gulp.series('sass'));
+  done()
 });
 
 gulp.task('default', gulp.parallel('browser-sync', 'watch'));
