@@ -46,7 +46,15 @@ function uniSearchResults($data) {
     endif;
 
     if (get_post_type() == 'program' ) :
-
+        $relatedCampuses = get_field('related_campuses');
+        if($relatedCampuses) :
+            foreach($relatedCampuses as $campus) :
+                array_push($results['campuses'], array(
+                    'name' => get_the_title($campus),
+                    'url' => get_the_permalink($campus)
+                ));
+            endforeach;
+        endif;
         array_push($results['programs'], array(
             'name' => get_the_title(),
             'url' => get_the_permalink(),
@@ -83,7 +91,7 @@ function uniSearchResults($data) {
     endwhile;
 
     if($results['programs']) :
-            $programsMetaQuery = array('relation' => 'OR');
+        $programsMetaQuery = array('relation' => 'OR');
 
         foreach($results['programs'] as $item) :
             array_push($programsMetaQuery, array(
@@ -94,12 +102,31 @@ function uniSearchResults($data) {
         endforeach;
 
         $programRel = new WP_Query(array(
-            'post_type' => 'instructor',
+            'post_type' => array('instructor', 'event'),
             'meta_query' => $programsMetaQuery
         ));
 
         while($programRel->have_posts()) :
             $programRel->the_post();
+
+            if (get_post_type() == 'event' ) :
+                $eventDate = new DateTime(get_field('event_date'));
+                $desc = NULL;
+                if(has_excerpt()) :
+                    $desc = get_the_excerpt();
+                else :
+                    $desc = wp_trim_words(get_the_content(), 20);
+                endif;
+                
+                array_push($results['events'], array(
+                    'name' => get_the_title(),
+                    'url' => get_the_permalink(),
+                    'month' => $eventDate->format('M'),
+                    "day" => $eventDate->format('d'),
+                    'desc' => $desc
+                ));
+            endif;
+
             if (get_post_type() == 'instructor' ) :
 
                 array_push($results['instructors'], array(
@@ -110,7 +137,9 @@ function uniSearchResults($data) {
             endif;
         endwhile;
 
-        $results['instructors']  = array_values(array_unique($results['instructors'], SORT_REGULAR));
+        $results['instructors'] = array_values(array_unique($results['instructors'], SORT_REGULAR));
+        $results['events'] = array_values(array_unique($results['events'], SORT_REGULAR));
+
     endif;
     
 
