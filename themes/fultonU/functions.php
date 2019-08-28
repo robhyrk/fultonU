@@ -110,9 +110,6 @@ if (!$args['photo']) {
 }
 
 //move to mu-plugins after development
-
-<?php 
-
 function uni_post_types() {
     //Event Post Type
     register_post_type('campus', array(
@@ -182,8 +179,5 @@ function uni_post_types() {
 }
 
 add_action('init', 'uni_post_types');
-
-?>
-
 
 ?>
