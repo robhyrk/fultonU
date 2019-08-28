@@ -3,6 +3,9 @@
 function uni_post_types() {
     //Event Post Type
     register_post_type('campus', array(
+        //Allows custom user role capabilties via members plugin
+        'capability_type' => 'campus',
+        'map_meta_cap' => true,
         'has_archive' => true,
         'show_in_rest' => true,
         'supports' => array('title', 'editor', 'excerpt'),
@@ -20,6 +23,8 @@ function uni_post_types() {
 
     //Event Post Type
     register_post_type('event', array(
+        'capability_type' => 'event',
+        'map_meta_cap' => true,
         'has_archive' => true,
         'show_in_rest' => true,
         'supports' => array('title', 'editor', 'excerpt'),
