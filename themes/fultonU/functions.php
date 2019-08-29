@@ -109,10 +109,51 @@ if (!$args['photo']) {
     <?php
 }
 
+//redirect subscriber accounts out of action and onto homepage
+
+function redirectSubsToFrontend() {
+    $ourCurrentUser = wp_get_current_user();
+
+    if (count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles[0] =='subscriber'):
+        wp_redirect(site_url('/'));
+        exit;
+    endif;
+}
+
+add_action('admin_init', 'redirectSubsToFrontend');
+
+function noSubsAdminBar() {
+    $ourCurrentUser = wp_get_current_user();
+
+    if (count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles[0] =='subscriber'):
+        show_admin_bar(false);
+    endif;
+}
+
+add_action('wp_loaded', 'noSubsAdminBar');
+
+//change login screen stuff
+function headerURL() {
+    return esc_url(site_url('/'));
+}
+add_filter('login_headerurl', 'headerURL');
+
+function ourLoginLogo() {
+  return get_bloginfo('name');
+}
+add_filter('login_headertitle', 'ourLoginLogo');
+
+function loginCSS() {
+    wp_enqueue_style('uni_main_styles', get_stylesheet_uri(), NULL, microtime());
+}
+add_action('login_enqueue_scripts', 'loginCSS');
+
 //move to mu-plugins after development
 function uni_post_types() {
     //Event Post Type
     register_post_type('campus', array(
+        'capability_type' => 'campus',
+        'map_meta_cap' => true,
         'has_archive' => true,
         'show_in_rest' => true,
         'supports' => array('title', 'editor', 'excerpt'),
@@ -130,6 +171,8 @@ function uni_post_types() {
 
     //Event Post Type
     register_post_type('event', array(
+        'capability_type' => 'event',
+        'map_meta_cap' => true,
         'has_archive' => true,
         'show_in_rest' => true,
         'supports' => array('title', 'editor', 'excerpt'),
