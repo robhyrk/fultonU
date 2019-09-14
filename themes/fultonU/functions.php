@@ -205,7 +205,7 @@ function uni_post_types() {
         'menu_icon' => 'dashicons-awards'
     ));
 
-    // Post Type
+    // Instructor Post Type
     register_post_type('instructor', array(
         'show_in_rest' => true,
         'supports' => array('title', 'editor', 'thumbnail'),
@@ -218,6 +218,22 @@ function uni_post_types() {
             'singular_name' => 'Instructor'
         ),
         'menu_icon' => 'dashicons-welcome-learn-more'
+    ));
+
+    // Note Post Type
+    register_post_type('note', array(
+        'show_in_rest' => true,
+        'supports' => array('title', 'author', 'editor'),
+        'public' => false,
+        'show_ui' => true,
+        'labels' => array(
+            'name' => 'Notes',
+            'add_new_item' => 'Add New Note',
+            'edit_item' => 'Edit Note',
+            'all_items' => 'All Notes',
+            'singular_name' => 'Note'
+        ),
+        'menu_icon' => 'dashicons-welcome-write-blog'
     ));
 }
 
