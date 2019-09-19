@@ -7,6 +7,10 @@ function uni_custom_rest() {
     register_rest_field('post', 'authorName', array(
         'get_callback' => function(){return get_the_author();}
     ));
+
+    register_rest_field('note', 'userNoteCount', array(
+        'get_callback' => function(){return count_user_posts(get_current_user_id(), 'note');}
+    ));
 }
 
 add_action('rest_api_init', 'uni_custom_rest');
@@ -223,6 +227,8 @@ function uni_post_types() {
 
     // Note Post Type
     register_post_type('note', array(
+        'capability_type' => 'note',
+        'map_meta_cap' => true,
         'show_in_rest' => true,
         'supports' => array('title', 'author', 'editor'),
         'public' => false,
@@ -239,5 +245,24 @@ function uni_post_types() {
 }
 
 add_action('init', 'uni_post_types');
+
+
+function makeNotePrivate($data, $postarr) {
+  if ($data['post_type'] == 'note') {
+    if(count_user_posts(get_current_user_id(), 'note') > 3 && !$postarr['ID']) {
+      die("You have reached your note limit.");
+    }
+
+    $data['post_content'] = sanitize_textarea_field($data['post_content']);
+    $data['post_title'] = sanitize_text_field($data['post_title']);
+  }
+
+  if($data['post_type'] == 'note' AND $data['post_status'] != 'trash') {
+    $data['post_status'] = "private";
+  }
+  
+  return $data;
+}
+add_filter('wp_insert_post_data', 'makeNotePrivate', 10, 2);
 
 ?>
